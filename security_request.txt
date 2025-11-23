@@ -1,0 +1,1 @@
+All containers must enforce least privilege by running as a non-root user, blocking privilege escalation, and using a read-only root filesystem.
