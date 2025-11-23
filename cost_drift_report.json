@@ -1,0 +1,21 @@
+{
+  "summary": "The plan involves creating one new server instance (t3.medium), performing a significant scale-up on the production RDS database (db.t3.medium to db.r5.large), and destroying an old S3 log bucket.",
+  "cost_impact": "Significant Monthly Increase. The upgrade of the production RDS instance to the R5 Large class is a high-cost operation that will substantially increase the monthly compute bill.",
+  "critical_changes_found": [
+    {
+      "change_type": "ADD",
+      "resource_name": "aws_instance.new_server",
+      "risk_or_cost_note": "DevSecOps Risk: The new server is configured to 'associate_public_ip_address = true'. Exposing a new production server directly to the public internet via a public IP constitutes a security drift that should be reviewed."
+    },
+    {
+      "change_type": "UPDATE",
+      "resource_name": "aws_db_instance.db_prod",
+      "risk_or_cost_note": "FinOps Warning: Upgrading the instance class from 'db.t3.medium' to 'db.r5.large' is explicitly noted as a significant cost increase. This change requires strong justification and budget confirmation."
+    },
+    {
+      "change_type": "DESTROY",
+      "resource_name": "aws_s3_bucket.logs",
+      "risk_or_cost_note": "Operational Check: Destruction of the 'logs' bucket should be validated to ensure all data (audit logs, access logs) have been properly archived or are no longer needed, to prevent data loss."
+    }
+  ]
+}

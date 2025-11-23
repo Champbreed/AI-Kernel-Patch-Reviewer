@@ -1,0 +1,28 @@
+Terraform will perform the following actions:
+​aws_instance.new_server will be created
+​resource "aws_instance" "new_server" {
+​ami                         = "ami-0abcdef1234567890"
+​instance_type               = "t3.medium" # Change from t2.micro
+​private_ip                  = (known after apply)
+​tags                        = {
+​"Environment" = "Prod"
+}
+​vpc_security_group_ids      = [
+​"sg-0444aaaa5555bbbb"
+]
+​associate_public_ip_address = true # Security Risk
+}
+​aws_db_instance.db_prod will be updated in-place
+​~ resource "aws_db_instance" "db_prod" {
+allocated_storage       = 100
+~ instance_class          = "db.t3.medium" -> "db.r5.large" # Significant Cost Increase
+storage_encrypted       = true
+# (25 unchanged attributes hidden)
+}
+​aws_s3_bucket.logs will be destroyed
+​resource "aws_s3_bucket" "logs" {
+​acl                         = "private" -> null
+​bucket                      = "project-logs-old-2024"
+​(13 unchanged attributes hidden)
+​}
+​Plan: 1 to add, 1 to change, 1 to destroy.
