@@ -1,14 +1,14 @@
 [
     {
-        "commit_hash": "N/A",
-        "title": "mm: memory: Potential Use-After-Free due to missing state update",
-        "affected_subsystem": "Memory Management (mm)",
+        "commit_hash": "PATCH_MM_001",
+        "title": "Conditional refcount check in free_page_data",
+        "affected_subsystem": "mm",
         "security_flag": "HIGH",
         "potential_issues": [
             "Use-After-Free (UAF)",
-            "Memory Corruption",
-            "Stale Pointer Access"
+            "Dangling Pointer",
+            "Stale State Inconsistency"
         ],
-        "human_readable_summary": "The patch introduces a condition to check the page reference count before freeing data, but it incorrectly removes the line that updates the page state to PAGE_FREE. This leaves the page structure in an inconsistent state where it may appear active to other parts of the kernel while its internal data buffer has been deallocated, resulting in a Use-After-Free vulnerability."
+        "human_readable_summary": "The patch introduces a conditional check on p->refcount before freeing p->data but removes the assignment that sets p->state to PAGE_FREE. This results in the page object retaining an active state despite its data buffer being released to the allocator. Subsequent kernel operations may attempt to access p->data, leading to a Use-After-Free vulnerability."
     }
 ]

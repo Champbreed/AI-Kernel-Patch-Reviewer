@@ -1,0 +1,13 @@
+--- a/drivers/net/ethernet/example_driver.c
++++ b/drivers/net/ethernet/example_driver.c
+@@ -10,6 +10,7 @@ static int example_xmit(struct sk_buff *skb, struct net_device *dev) {
+     if (unlikely(error_condition)) {
+-        dev_kfree_skb(skb);
+-        return NETDEV_TX_OK;
++        dev_kfree_skb(skb);
++        pr_err("Failed to transmit packet: %s\n", skb->data); // BUG: Accessing skb after free
++        return NETDEV_TX_BUSY;
+     }
+ }
+
+

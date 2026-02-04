@@ -1,184 +1,69 @@
-AI-Driven DevSecOps Automation Portfolio
-​Applicant: Simon Essien (champbreed1@gmail.com)
-GitHub Repository: [https://github.com/Champbreed/AI-Kernel-Patch-Reviewer]
-Domain Focus: Advanced DevSecOps and FinOps Automation via Generative AI (Google Gemini) and Python.
+# 🛡️ AegisOps-AI
+### *Autonomous DevSecOps & FinOps Guardrails powered by Gemini 3 Flash*
 
-​This portfolio showcases four distinct, innovative projects that leverage Large Language Models (LLMs) to automate security, 
-compliance, and cost optimization across the full stack—from core Linux kernel code to modern Cloud-Native infrastructure. T
-he core principle demonstrated is converting unstructured technical output into actionable, structured data (JSON Schema) for pipeline consumption.
+[![Gemini 3 Flash](https://img.shields.io/badge/AI-Gemini%203%20Flash-blueviolet)](https://aistudio.google.com/app/prompts/new)
+[![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-success)](https://github.com/Champbreed/AegisOps-AI/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-​🧭 Table of Contents
+**AegisOps-AI** is a professional-grade "Living Pipeline" designed to integrate advanced AI reasoning directly into the software development lifecycle. By leveraging **Gemini 3 Flash**, it acts as an automated, intelligent gatekeeper for Linux Kernel security, Cloud Infrastructure costs, and Kubernetes compliance.
 
-​Setup & Environment
-​Project 1: Kernel Patch Reviewer (Linux Security)
-​Project 2: Terraform Security Auditor (IaC Security)
-​Project 3: IaC Cost and Drift Analyzer (FinOps)
-​Project 4: K8s Policy & Config Hardener (Policy-as-Code)
+---
 
-​1. ⚙ Setup & Environment
+## 🚀 Key Value Propositions
 
-​All tools are built in Python 3 and designed to run within a standard virtual environment.
+* **The Living Pipeline:** Unlike traditional scanners, AegisOps-AI is integrated into **GitHub Actions** (`devsecops-audit.yml`). It functions as an active quality gate that can block unsafe or non-compliant merges automatically.
+* **Full-Stack Context:** AegisOps-AI bridges the gap between **low-level systems** (C-based Kernel patches) and **high-level business operations** (FinOps), providing a unified security posture across different technical domains.
+* **Advanced Reasoning:** Built to handle complex tasks that traditional static analysis tools miss, such as identifying logic-based Use-After-Free (UAF) vulnerabilities and detecting massive cost-drifts in infrastructure plans.
 
- step                                         command                                             purpose
-________________________________________________________________________________________________________________________________
+---
 
+## 🧭 Core Modules
 
-1. Clone & Navigate              git clone [Your Repo URL]; cd [Repo Name]              Fetches the code and enters the project 
-                                                                                        directory.
-_________________________________________________________________________________________________________________________________
+### 1. 🐧 Kernel Patch Reviewer (`patch_analyzer.py`)
+**Problem:** Manual review of Linux Kernel memory safety is time-consuming and prone to human error.
+**Solution:** Gemini 3 performs a "Deep Reasoning" audit on raw Git diffs to detect critical memory corruption vulnerabilities (UAF, Stale State) in seconds.
+* **Key Output:** `analysis_results.json`
 
-2. Activate Venv                python3 -m venv venv; source venv/bin/activate          Creates and activates an isolated 
-                                                                                        environment. 
+### 2. 💰 FinOps & Cloud Auditor (`cost_auditor.py`)
+**Problem:** Infrastructure-as-Code (IaC) changes can lead to accidental "Silent Disasters" and massive cloud bill spikes.
+**Solution:** Analyzes `terraform plan` output to identify cost anomalies—such as accidental upgrades from `t3.micro` to high-performance GPU instances like `p3.8xlarge`.
+* **Key Output:** `infrastructure_audit_report.json`
 
-_________________________________________________________________________________________________________________________________
+### 3. ☸️ K8s Policy Hardener (`k8s_policy_generator.py`)
+**Problem:** Implementing "Least Privilege" security contexts in Kubernetes is complex and often neglected.
+**Solution:** Translates natural language security requirements into production-ready, hardened YAML manifests (Read-only root FS, Non-root user enforcement, and Capability dropping).
+* **Key Output:** `hardened_deployment.yaml`
 
-3. Install Deps                   pip install requests python-dotenv                    Installs necessary libraries for API commu-
-                                                                                        nication and secret loading.
+---
 
-__________________________________________________________________________________________________________________________________
+## 🛠️ Setup & Environment
 
-4. Configure API Key            echo 'GEMINI_API_KEY="YOUR_KEY_HERE"' > .env            Sets the credential securely (The .env file 
-                                                                                        is excluded from Git via .gitignore).
+1.  **Clone the Repository:**
+    ```bash
+    git clone [https://github.com/Champbreed/AegisOps-AI.git](https://github.com/Champbreed/AegisOps-AI.git)
+    cd AegisOps-AI
+    ```
+2.  **Environment Setup:**
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install google-genai python-dotenv
+    ```
+3.  **API Configuration:** Create a `.env` file in the root directory:
+    ```bash
+    echo "GEMINI_API_KEY='your_api_key_here'" > .env
+    ```
 
-___________________________________________________________________________________________________________________________________
+---
 
+## 🏁 Operational Dashboard
 
+To execute the full suite of agents in sequence and generate all security reports:
+```bash
+python3 main.py
+---
 
+## ⚖️ License
+Distributed under the MIT License. See `LICENSE` for more information.
 
-
-
-2.  🛡  Project 1: AI-Driven Kernel Patch Reviewer
-
-               Metric                                                        Details
-___________________________________________________________________________________________________________________________________
-
-A.         What It Does                                             Automated Vulnerability Triage for Linux Patches. Analyzes raw Git
-                                                                   diffs/patches from Linux kernel repositories (e.g., net-next.git).
-___________________________________________________________________________________________________________________________________
-
-B.       How It Works                                              The script (patch_analyzer.py) sends raw C code/patch diffs to 
-                                                                  the LLM, enforcing a strict JSON Schema to return a structured 
-                                                                  finding (Severity, Issue, Remediation) rather than just free text
-___________________________________________________________________________________________________________________________________
-
-C.   Relevance to Linux/Open Source                                Kernel Contribution Acceleration: Proves capability in handling
-                                                                  complex C code structures and identifying critical vulnerabilities
-                                                                  (like Use-After-Free) at the earliest stage, significantly reducing
-                                                                  the security review overhead for kernel maintainers.
-___________________________________________________________________________________________________________________________________
-
-D.     Run Command                                                   python3
-                                                                    patch_analyzer.py
-___________________________________________________________________________________________________________________________________
-
-
-
-
-
-
-
-
-3. ☁  Project 2: AI-Driven Terraform Security Auditor
-
-                    Metric                                                 Details
-___________________________________________________________________________________________________________________________________
-
-A.             What It Does                                        Shift-Left IaC Security Gating. Performs static analysis on
-                                                                  Infrastructure as Code (IaC) written in Terraform HCL to check for
-                                                                  compliance and common cloud risks.
-___________________________________________________________________________________________________________________________________
-
-B.            How It Works                                         The script (terraform_auditor.py) reads the IaC file 
-                                                                   (test_infra.tf) and instructs the AI to generate a structured
-                                                                   audit report, categorized by severity, risk, and containing
-                                                                   executable remediation steps.
-___________________________________________________________________________________________________________________________________
-
-C.    Relevance to DevSecOps                                      Security Compliance: Creates a vital security check before cloud 
-                                                                  infrastructure is deployed. This is a foundational DevSecOps
-                                                                  practice essential for ensuring baseline security posture 
-                                                                  in any cloud environment.
-___________________________________________________________________________________________________________________________________
-
-D.          Run Command                                                        python3
-                                                                         terraform_auditor.py
-
-___________________________________________________________________________________________________________________________________
-
-
-
-
-
-
-
-
-
-4. 💰 Project 4: AI-Driven K8s Policy & Configuration Hardener
-
-
-___________________________________________________________________________________________________________________________________
-
-                     Metric                                 Details
-__________________________________________________________________________________________________________________________________
-
-
-A.                 What It Does                         DevSecOps & FinOps Integration. Provides a dual security and financial impact
-                                                        audit by analyzing the raw text output of a complex terraform plan diff.
-___________________________________________________________________________________________________________________________________
-
-
-B.               How It Works                           The script (cost_auditor.py) leverages the AI's contextual reasoning to 
-                                                        synthesize the plan's changes, producing a structured report that includes 
-                                                        a Cost Forecast (budget impact) and Security Drift Notes (e.g., unauthorized
-                                                        resource exposure).
-___________________________________________________________________________________________________________________________________
-
-C.       Relevance to Strategy                          Operational Excellence: This project demonstrates high-level strategic
-                                                        thinking by bridging technical deployment risk with business profitability 
-                                                        and cost governance (FinOps), a non-negotiable requirement for modern, 
-                                                        large-scale cloud organizations.
-
-___________________________________________________________________________________________________________________________________
-
-D.              Run Command                                python3 
-                                                         cost_auditor.py
-
-___________________________________________________________________________________________________________________________________
-
-
-
-
-
-
-
-5.   🔑 Project 4: AI-Driven K8s Policy & Configuration Hardener
-
-___________________________________________________________________________________________________________________________________
-
-                 Metric                       Details
-
-___________________________________________________________________________________________________________________________________
-
-A.         What It Does                Natural Language to Policy-as-Code Automation. Automates the creation of hardened Kubernetes
-                                       YAML configurations and their corresponding security enforcement policies from simple 
-                                       English requirements.
-__________________________________________________________________________________________________________________________________
-
-B.         How It Works                The script (k8s_policy_generator.py) takes a high-level policy (e.g., "All containers must 
-                                       run as non-root") and outputs two critical, structured artifacts: 1) The hardened K8s
-                                       Deployment YAML, and 2) A concise Policy Summary suitable for external policy engines like 
-                                       OPA Gatekeeper.
-__________________________________________________________________________________________________________________________________
-
-C.      Relevance to Cloud-Native      Governance and Compliance: Solves the complexity of cloud-native security by automating the
-                                       creation of both the secure artifact and the rule required to enforce that artifact, 
-                                       establishing repeatable, auditable governance in a Kubernetes cluster.
-__________________________________________________________________________________________________________________________________
-
-D.         Run Command                       python3
-                                         k8s_policy_generator.py
-___________________________________________________________________________________________________________________________________
-
-
-All project files, including Python scripts, test inputs, and JSON/YAML outputs, are included in the repository for full functional verification.
-
+**Author:** Simon Essien ([@Champbreed](https://github.com/Champbreed))

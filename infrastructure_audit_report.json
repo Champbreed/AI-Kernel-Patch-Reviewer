@@ -1,0 +1,56 @@
+```json
+{
+  "analysis_summary": {
+    "status": "Warning",
+    "total_changes": 2,
+    "actions": {
+      "add": 1,
+      "change": 1,
+      "destroy": 0
+    }
+  },
+  "cost_analysis": {
+    "severity": "Critical",
+    "currency": "USD",
+    "estimated_monthly_increase": 8927.90,
+    "details": [
+      {
+        "resource": "aws_instance.web_server",
+        "change_type": "Instance Upgrade",
+        "from_type": "t3.micro",
+        "to_type": "p3.8xlarge",
+        "impact": "Massive cost spike. t3.micro (~$0.0104/hr) is being replaced by a p3.8xlarge (~$12.24/hr), which is a high-performance GPU instance usually reserved for Machine Learning workloads."
+      }
+    ]
+  },
+  "security_analysis": {
+    "severity": "Critical",
+    "total_violations": 1,
+    "violations": [
+      {
+        "resource": "aws_security_group.allow_all",
+        "issue": "Unrestricted Ingress Access",
+        "description": "The security group allows all protocols (-1) from all ports (0-0) from the entire internet (0.0.0.0/0).",
+        "risk": "This exposes the instance to global scanning, brute force attacks, and unauthorized access. It violates the principle of least privilege.",
+        "remediation": "Restrict ingress to specific ports (e.g., 80, 443) and limit CIDR blocks to known IP ranges or specific VPC subnets."
+      }
+    ]
+  },
+  "operational_analysis": {
+    "tag_changes": [
+      {
+        "resource": "aws_instance.web_server",
+        "key": "Environment",
+        "old_value": "Dev",
+        "new_value": "Production"
+      }
+    ],
+    "observations": "The environment change from 'Dev' to 'Production' suggests this deployment is moving to a live setting, making the 'allow_all' security group risk even more severe."
+  },
+  "recommendations": [
+    "Verify if a p3.8xlarge GPU instance is actually required for a resource named 'web_server'.",
+    "Immediately modify aws_security_group.allow_all to restrict traffic to necessary ports only.",
+    "Implement an IAM policy or Service Control Policy (SCP) to prevent the creation of 0.0.0.0/0 ingress rules on sensitive ports."
+  ]
+}
+```

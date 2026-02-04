@@ -15,17 +15,26 @@ spec:
         app: nginx
     spec:
       securityContext:
+        # Enforces running as a non-root user for the whole Pod
         runAsNonRoot: true
+        # Specifies the UID to run the processes under
         runAsUser: 1000
+        fsGroup: 1000
       containers:
       - name: nginx
         image: nginx:latest
         ports:
         - containerPort: 80
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         securityContext:
+          # Required: Blocks the container from gaining additional privileges
           allowPrivilegeEscalation: false
+          # Required: Ensures the root filesystem cannot be written to
           readOnlyRootFilesystem: true
+          # Required: Ensures the container explicitly runs non-root
+          runAsNonRoot: true
+          # Explicitly set the UID
+          runAsUser: 1000
+          # Best practice: Drop all Linux capabilities
+          capabilities:
+            drop:
+            - ALL
