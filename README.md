@@ -51,6 +51,7 @@ AegisOps-AI leverages the **Google GenAI SDK** to implement a "Reasoning Path" f
    ```bash
    git clone [https://github.com/Champbreed/AegisOps-AI.git](https://github.com/Champbreed/AegisOps-AI.git)
    cd AegisOps-AI
+   ```
 Environment Setup:
 
 Bash
@@ -59,21 +60,18 @@ source venv/bin/activate
 pip install google-genai python-dotenv
 API Configuration: Create a .env file in the root directory:
 
-Bash
+```Bash
 echo "GEMINI_API_KEY='your_api_key_here'" > .env
+```
 🏁 Operational Dashboard
 To execute the full suite of agents in sequence and generate all security reports:
 
-Bash
+```Bash
 python3 main.py
+```
 ⚖️ License
 Distributed under the MIT License. See LICENSE for more information.
 
 Author: Simon Essien (@Champbreed) EOF
 
 
-### 🛠️ Step 2: Push the clean version
-```bash
-git add README.md
-git commit -m "docs: integrate AI reasoning path and fix license layout"
-git push origin main
